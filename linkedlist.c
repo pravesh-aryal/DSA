@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+//requirements, nodes inserted at the beginning everytime and print it.
 struct Node{
     int data;
     struct Node* next;
@@ -8,10 +8,37 @@ struct Node{
 
 struct Node* head;
 
-int main(){
-    head = NULL; //the list is empty
-    
+void Insert(int x){
+    struct Node* temp = malloc(sizeof(struct Node));
+    temp->data = x;
+    temp->next = head;
+    head = temp;
+}
 
+void Print(){
+    //print the linkedlist
+    struct Node* nodePtr = head;
+    while (nodePtr != NULL){
+        printf("%d ", nodePtr->data);
+        nodePtr = nodePtr->next;
+    }
+}
+
+
+int main(){
+    head = NULL; //the list is empty initially
+    printf("Enter number of items: \n");
+    int n, x;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++){
+        printf("Enter the data number: \n");
+        scanf("%d", &x);
+        //defined by me
+        Insert(x);
+        printf("---printing--- \n");
+        Print();
+        //
+    }
 }
 
 
