@@ -22,7 +22,7 @@ void Insert(int data, int n){
     }
     //if inserting somewhere else other than 1 loop until to get the n-1th node
     struct Node *temp2 = head;
-    for (int i = 0; i < n-2; i++){
+    for (int i = 1; i < n-1; i++){
         temp2 = temp2->next;
     }
     temp1->next = temp2->next;
