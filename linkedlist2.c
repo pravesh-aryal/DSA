@@ -29,7 +29,25 @@ void Insert(int data){
 
 }
 
-
+void ReverseLinkedList(){
+    struct Node *current, *prev, *next;
+    current = head;
+    prev = NULL; //because prev is NULL for the first node after reversal
+    while (current != NULL){
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    head = prev;
+}
+void recursionReverse(struct Node *p){
+    if (p==NULL){
+        return;
+    }
+    recursionReverse(p->next);
+    printf("%d ", p->data);
+}
 void Delete(int n){
     struct Node *temp1;
     temp1 = head;
@@ -77,10 +95,12 @@ int main(){
     Insert(10);
     Insert(11);
     Insert(12);
-     Print();
+
     int n;
-    printf("enter a position: \n");
-    scanf("%d", &n);
-    Delete(n);
+    // printf("enter a position: \n");
+    // scanf("%d", &n);
+    // Delete(n);
     Print();
+    // ReverseLinkedList();
+    recursionReverse(head);
 }
