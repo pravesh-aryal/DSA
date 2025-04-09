@@ -33,7 +33,6 @@ void printList(Node* head){
 }
 
 void reverseLinkedList(Node*& head){
-    Node* newHead = nullptr;
     //for the first node, we make it point to null and break the link.
     //from the second node
     Node* previousNode = nullptr; 
@@ -44,6 +43,7 @@ void reverseLinkedList(Node*& head){
         nextNode = currentNode->next; //2 3
         //reverseing step
         currentNode->next = previousNode; //null, 1
+        //getting it ready for next loop
         previousNode = currentNode;//1, 2
         currentNode = nextNode;
     }
@@ -52,12 +52,37 @@ void reverseLinkedList(Node*& head){
 
 }
 
+void removeNthNodeFromStart(Node*& head, int n){
+    //1->2->3->4->5
+    Node* previousNode;
+    Node* currentNode = head;
+    Node* nextNode;
+    //if it first node
+    if (n == 1){
+        head = head->next;
+    }
+
+    //if nth node, let n = 3
+    for (int i = 2; i <= n; i++){
+        previousNode = currentNode; //1, 2, 
+        currentNode = currentNode->next; //2, 3, 
+        // nextNode = currentNode->next;
+
+        if ( i == n){
+            previousNode->next = currentNode->next;
+        }
+
+    }
+
+
+}
+
 int main(){
     Node* head = nullptr; //nullptr because safe.
     //address of head = 0x01 
     int n, value;
-    cout << "Enter the number of nodes you want: ";
-    cin >> n;
+    // cout << "Enter the number of nodes you want: ";
+    // cin >> n;
 
     // for (int i = 0; i < n; ++i){
     //     cout << "Enter data int for node" << i + 1 << ": ";
@@ -72,7 +97,8 @@ int main(){
 
     printList(head);
 
-    reverseLinkedList(head);
+    // reverseLinkedList(head);
+    removeNthNodeFromStart(head, 5);
     printList(head);
 }
 
