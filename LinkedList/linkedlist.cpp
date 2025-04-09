@@ -75,37 +75,70 @@ void removeNthNodeFromStart(Node*& head, int n){
     }
 }
 
+//two pointers approach for removing Nth from end
 void removeNthNodeFromEnd(Node*& head, int n){
     //1,2,3,4,5
-    //the length approach
-    Node* currentNode = head;
-    int length = 0;
-    while (currentNode){
-        currentNode = currentNode->next;
-        length++;
+    Node* fast = head;
+    //fast is n steps ahead
+    for (int i = 1; i <=n; i++){
+        fast = fast->next;
     }
-    int deletionIndex;
-    deletionIndex = length - n + 1;
-    Node* previousNode;
-    currentNode = head;
-    Node* nextNode;
-    //if it first node
-    if (n == 1){
+    
+    //if its first node i.e fast = NULL
+    if (!fast){
         head = head->next;
+        return;
     }
+    
+    Node* slow;
+    Node* previous;
+    slow = head;
+    //fast will be n steps ahead
+    while (fast){
+        fast = fast->next;
+        previous = slow;
+        slow = slow->next;
+    }
+    //slow is the current node from which we want a link
+    // cout << "Fast" << fast->data << endl;
+    cout << "Slow" << previous->data << endl;
 
-    //if nth node, let n = 3
-    for (int i = 2; i <= deletionIndex; i++){
-        previousNode = currentNode; //1, 2, 
-        currentNode = currentNode->next; //2, 3, 
-        // nextNode = currentNode->next;
-
-        if ( i == deletionIndex){
-            previousNode->next = currentNode->next;
-        }
-
-    } 
+    Node* current = previous;
+    Node* next = previous->next->next;
+    current->next = next;
 }
+
+//void removeNthNodeFromEnd(Node*& head, int n){
+//    //1,2,3,4,5
+//    //the length approach
+//    Node* currentNode = head;
+//    int length = 0;
+//    while (currentNode){
+//        currentNode = currentNode->next;
+//        length++;
+//    }
+//    int deletionIndex;
+//    deletionIndex = length - n + 1;
+//    Node* previousNode;
+//    currentNode = head;
+//    Node* nextNode;
+//    //if it first node
+//    if (n == 1){
+//        head = head->next;
+//    }
+//
+//    //if nth node, let n = 3
+//    for (int i = 2; i <= deletionIndex; i++){
+//        previousNode = currentNode; //1, 2, 
+//        currentNode = currentNode->next; //2, 3, 
+//        // nextNode = currentNode->next;
+//
+//        if ( i == deletionIndex){
+//            previousNode->next = currentNode->next;
+//        }
+//
+//    } 
+//}
 
 int main(){
     Node* head = nullptr; //nullptr because safe.
@@ -125,11 +158,11 @@ int main(){
     append(head, 4);
     append(head, 5);
 
-    printList(head);
+    // printList(head);
 
     // reverseLinkedList(head);
     // removeNthNodeFromStart(head, 5);
-    removeNthNodeFromEnd(head, 2);
+    removeNthNodeFromEnd(head, 1); //1,2,3,4,5
     printList(head);
 }
 
