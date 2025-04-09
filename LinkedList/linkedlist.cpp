@@ -79,6 +79,9 @@ void removeNthNodeFromStart(Node*& head, int n){
 void removeNthNodeFromEnd(Node*& head, int n){
     //1,2,3,4,5
     Node* fast = head;
+    Node* slow;
+    Node* previous;
+    slow = head;
     //fast is n steps ahead
     for (int i = 1; i <=n; i++){
         fast = fast->next;
@@ -90,23 +93,20 @@ void removeNthNodeFromEnd(Node*& head, int n){
         return;
     }
     
-    Node* slow;
-    Node* previous;
-    slow = head;
+
     //fast will be n steps ahead
     while (fast){
+        cout <<"previous " << previous->data << " Slow " << slow->data << "Fast" << fast->data << endl; 
         fast = fast->next;
+        //slow is the current node from which we want a link which is set to previous
         previous = slow;
         slow = slow->next;
-    }
-    //slow is the current node from which we want a link
-    // cout << "Fast" << fast->data << endl;
-    cout << "Slow" << previous->data << endl;
 
-    Node* current = previous;
-    Node* next = previous->next->next;
-    current->next = next;
+    }
+    previous->next = slow->next;
 }
+
+
 
 //void removeNthNodeFromEnd(Node*& head, int n){
 //    //1,2,3,4,5
@@ -162,7 +162,7 @@ int main(){
 
     // reverseLinkedList(head);
     // removeNthNodeFromStart(head, 5);
-    removeNthNodeFromEnd(head, 1); //1,2,3,4,5
+    removeNthNodeFromEnd(head, 2); //1,2,3,4,5
     printList(head);
 }
 
