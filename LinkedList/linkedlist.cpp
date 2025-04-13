@@ -106,7 +106,49 @@ void removeNthNodeFromEnd(Node*& head, int n){
     previous->next = slow->next;
 }
 
+void reorderLinkedList(Node*& head){
+    /*
+    1->2->3->4->5 
+    1->5->2->4->3
 
+    1,2,3,4,5
+    Transition: 1->next = 5, 5->next = 2, 4->next = nullptr;
+    //variable usage: lastNode = 5, secondLastNode = 4, currentNode = 1
+    //at last set currentNode to 2 i.e lastNode->next;
+    1,5,2,3,4
+    1,5,2,4,3
+    */
+
+    Node *currentNode = head;
+    Node *previousNode = nullptr;
+    Node *nextNode = head->next;
+    Node *lastNode;
+    Node *secondLastNode;
+
+    if (!nextNode || !nextNode->next){
+        //if there is no next node return i.e only 1 node
+        return;
+    }
+    while(currentNode->next){ // 2, 3, 4, 5, nullptr
+        while (nextNode->next){ //3, 4, 5
+            if (!nextNode->next->next){
+                secondLastNode = nextNode;
+            }
+
+            nextNode = nextNode->next;
+
+        }
+        //after the loop is done we have the last node in nextNode
+        lastNode = nextNode; //5
+        secondLastNode->next = nullptr;; //4
+        lastNode->next = currentNode->next; //5->2
+        currentNode->next = lastNode; //1->5
+    
+        currentNode = lastNode->next;
+        //this should continue until my currentNode's direct next is null.
+    }
+
+}
 
 //void removeNthNodeFromEnd(Node*& head, int n){
 //    //1,2,3,4,5
@@ -156,13 +198,17 @@ int main(){
     append(head, 2);
     append(head, 3);
     append(head, 4);
-    append(head, 5);
+    // append(head, 5);
 
-    // printList(head);
+    cout << "The current unchanged linkedlist looks like: \n" << endl;
+    printList(head);
 
     // reverseLinkedList(head);
     // removeNthNodeFromStart(head, 5);
-    removeNthNodeFromEnd(head, 2); //1,2,3,4,5
+    // removeNthNodeFromEnd(head, 2); //1,2,3,4,5
+    reorderLinkedList(head);
+
+    cout << "Reordered linkedlist " << endl;
     printList(head);
 }
 
