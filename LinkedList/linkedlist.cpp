@@ -118,23 +118,22 @@ void reorderLinkedList(Node*& head){
     1,5,2,3,4
     1,5,2,4,3
     */
-
-    Node *currentNode = head;
-    Node *previousNode = nullptr;
-    Node *nextNode = head->next;
-    Node *lastNode;
-    Node *secondLastNode;
-
-    if (!nextNode || !nextNode->next){
-        //if there is no next node return i.e only 1 node
+    
+    if (!head || !head->next){
+        //if there is no next node return i.e only one or two node
         return;
     }
-    while(currentNode->next){ // 2, 3, 4, 5, nullptr
-        while (nextNode->next){ //3, 4, 5
-            if (!nextNode->next->next){
+    Node *currentNode = head;
+    Node *previousNode = nullptr;
+    Node *lastNode;
+    Node *secondLastNode;
+    Node *nextNode = head->next;
+
+    while(currentNode->next && currentNode->next->next){ // 2, 3, 4, nullptr
+        while (nextNode->next){ //3, 4
+            if (nextNode->next != nullptr && !nextNode->next->next){
                 secondLastNode = nextNode;
             }
-
             nextNode = nextNode->next;
 
         }
@@ -143,7 +142,6 @@ void reorderLinkedList(Node*& head){
         secondLastNode->next = nullptr;; //4
         lastNode->next = currentNode->next; //5->2
         currentNode->next = lastNode; //1->5
-    
         currentNode = lastNode->next;
         //this should continue until my currentNode's direct next is null.
     }
@@ -198,7 +196,7 @@ int main(){
     append(head, 2);
     append(head, 3);
     append(head, 4);
-    // append(head, 5);
+    append(head, 5);
 
     cout << "The current unchanged linkedlist looks like: \n" << endl;
     printList(head);
