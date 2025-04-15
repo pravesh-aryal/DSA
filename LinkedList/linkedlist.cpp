@@ -148,6 +148,52 @@ void reorderLinkedList(Node*& head){
 
 }
 
+Node* mergeTwoSortedLinkedList(Node*& head1, Node*& head2) {
+    if (!head1) return head1;
+    if (!head2) return head2;
+
+    Node* newHead = nullptr;
+    Node* tail = nullptr;
+    Node* temp = nullptr;
+
+    while (head1 && head2) {
+        if (head1->data < head2->data) {
+            temp = head1;
+            head1 = head1->next;
+        } else {
+            temp = head2;
+            head2 = head2->next;
+        }
+
+        if (!newHead) {
+            newHead = temp;
+            tail = newHead; 
+        } else {
+            tail->next = temp;
+            tail = tail->next;
+        }
+        temp->next = nullptr; 
+    }
+
+    //merged the rest of list if one list finishses early
+    if (head1) {
+        if (!newHead) { 
+            newHead = head1;
+        } else {
+            tail->next = head1;
+        }
+    }
+    if (head2) {
+        if (!newHead) { 
+            newHead = head2;
+        } else {
+            tail->next = head2;
+        }
+    }
+
+    return newHead;
+}
+
 //void removeNthNodeFromEnd(Node*& head, int n){
 //    //1,2,3,4,5
 //    //the length approach
@@ -182,6 +228,8 @@ void reorderLinkedList(Node*& head){
 
 int main(){
     Node* head = nullptr; //nullptr because safe.
+    Node* head2 = nullptr;
+    Node* newHead = nullptr;
     //address of head = 0x01 
     int n, value;
     // cout << "Enter the number of nodes you want: ";
@@ -192,11 +240,19 @@ int main(){
     //     cin >> value;
     //     append(head, value);
     // }
+    //the first LL
     append(head, 1);
     append(head, 2);
     append(head, 3);
     append(head, 4);
     append(head, 5);
+
+    //the second LL
+    append(head2, 2);
+    append(head2, 4);
+    append(head2, 5);
+    append(head2, 7);
+
 
     cout << "The current unchanged linkedlist looks like: \n" << endl;
     printList(head);
@@ -204,9 +260,10 @@ int main(){
     // reverseLinkedList(head);
     // removeNthNodeFromStart(head, 5);
     // removeNthNodeFromEnd(head, 2); //1,2,3,4,5
-    reorderLinkedList(head);
+    // reorderLinkedList(head);
+    newHead = mergeTwoSortedLinkedList(head, head2);
 
     cout << "Reordered linkedlist " << endl;
-    printList(head);
+    printList(newHead);
 }
 
