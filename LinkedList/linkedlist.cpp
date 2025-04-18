@@ -225,7 +225,22 @@ Node* mergeTwoSortedLinkedList(Node*& head1, Node*& head2) {
 //
 //    } 
 //}
-
+bool hasACycle(Node*& head){
+    Node* slow = head;
+    Node* fast = head;
+    //both slow and fast start at head, if there is a cycle at some point there will be slow = fast
+    while (fast){
+        if (fast->next == nullptr){
+            return false;
+        }
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast){
+            return true;
+        }
+    }
+    return false;
+}
 int main(){
     Node* head = nullptr; //nullptr because safe.
     Node* head2 = nullptr;
@@ -261,8 +276,11 @@ int main(){
     // removeNthNodeFromStart(head, 5);
     // removeNthNodeFromEnd(head, 2); //1,2,3,4,5
     // reorderLinkedList(head);
-    newHead = mergeTwoSortedLinkedList(head, head2);
-
+    // newHead = mergeTwoSortedLinkedList(head, head2);
+    bool hasCycle = hasACycle(head);
+    if (hasCycle){
+        cout << "The linkedlist has a loop: " << endl;
+    }
     cout << "Reordered linkedlist " << endl;
     printList(newHead);
 }
