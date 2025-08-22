@@ -5,7 +5,9 @@ def binarySearch(array, number):
     low, high = 0, len(array)-1
 
     while (low <= high):
+        
         mid = (low+high) // 2
+        print(mid, array[mid])
         if (array[mid] == number):
             return f"Number {number} found at {array.index(number)}th index"
         elif (array[mid] < number):
@@ -13,4 +15,4 @@ def binarySearch(array, number):
         else:
             high = mid-1
             
-print(binarySearch(array, 5))
+print(binarySearch(array, 1000))
