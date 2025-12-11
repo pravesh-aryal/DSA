@@ -1,33 +1,23 @@
 # array = [53, 61, 74, 85, 97, 12, 19, 27 , 34, 46]
-array = [4, 5, 6, 7, 0, 1, 2, 3, 3.5]
+array = [4, 5, 6, 7, 0, 1, 2]
+array = [1, 3]
 #i have to find the cutoff index from where two arrays are divided into
 
-target = 0
+target = 3
 
-low, high = 0, len(array) - 1
+left = 0
+right = len(array) - 1
 
-while (low <= high):
-    mid = (low+high) // 2
-    print(low, mid, high)
 
-    if (array[mid] == target):
-        print("Element found ", array.index(target))
-        break
+while (left <= right):
+    mid = (left+right) // 2
 
-    elif (array[mid] > target):
-        if (array[low] > target):
-            low = mid+1
-        elif (array[low] == target):
-            print("Element found ", array.index(target))
-            break
+    while (left <= right):
+        
+        if (array[left] < array[mid]):
+            pass
         else:
-            low = low + 1
+            pass
+        
 
-    else:
-        if (array[low] > target):
-            low = mid + 1
-        elif (array[low] == target):
-            print ("Element found ", array.index(target))
-            break
-        else:
-            high = high - 1
+    
